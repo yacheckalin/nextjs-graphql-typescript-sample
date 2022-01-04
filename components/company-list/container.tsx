@@ -1,5 +1,6 @@
 import React from "react";
 import { Company } from "../../backend/types";
+import CompanyListItem from "../company-list-item/container";
 
 interface Props {
   companies: Company[];
@@ -8,7 +9,7 @@ interface Props {
 const CompanyList: React.FC<Props> = ({ companies }): JSX.Element => (
   <ul>
     {companies.map((item) => (
-      <li key={item.id}>{item.name}</li>
+      <CompanyListItem company={item} key={item.id} />
     ))}
   </ul>
 );
