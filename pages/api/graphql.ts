@@ -2,6 +2,7 @@ import { ApolloServer } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { NextApiRequest, NextApiResponse } from "next";
 import { schema } from "../../backend/schema";
+import { data } from "../../backend/data.json";
 
 const apolloServer = new ApolloServer({
   schema,
@@ -10,6 +11,7 @@ const apolloServer = new ApolloServer({
       ? [ApolloServerPluginLandingPageGraphQLPlayground]
       : []),
   ],
+  context: { data },
 });
 
 const startServer = apolloServer.start();

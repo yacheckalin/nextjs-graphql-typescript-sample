@@ -19,3 +19,6 @@ export interface GetAllCompaniesInputI {
 export interface GetCompanyByIdI {
   id: number;
 }
+export interface ContextI {
+  data: Company[];
+}

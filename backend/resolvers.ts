@@ -1,11 +1,14 @@
 import { IResolvers } from "@graphql-tools/utils";
-import { data } from "./data.json";
-import { Company, GetAllCompaniesInputI, GetCompanyByIdI } from "./types";
+import { Company, ContextI, GetAllCompaniesInputI } from "./types";
 
 export const resolvers: IResolvers = {
   Query: {
-    getAllCompanies(parent, args: { input?: GetAllCompaniesInputI }, context) {
-      let result = [...data];
+    getAllCompanies(
+      parent,
+      args: { input?: GetAllCompaniesInputI },
+      context: ContextI
+    ) {
+      let result = [...context.data];
       const { input } = args;
 
       // filtering by specialities
@@ -32,16 +35,21 @@ export const resolvers: IResolvers = {
       }
       return result;
     },
-    getCompanyById(parent, args: { input: any }, context): Company | undefined {
+    getCompanyById(
+      parent,
+      args: { input: any },
+      context: ContextI
+    ): Company | undefined {
       let result = undefined;
       const id = parseInt(args.input?.id);
       if (id) {
-        result = data.find((item) => item.id === id);
+        result = context.data.find((item) => item.id === id);
       }
 
       return result;
     },
   },
+  //TODO: Will be added soon
   Mutation: {
     createCompany(parent, args, context) {
       return { ...args.input, id: 1 };
