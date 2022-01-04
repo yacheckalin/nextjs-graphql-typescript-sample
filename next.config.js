@@ -11,4 +11,7 @@ module.exports = {
   // webpackDevMiddleware: (config) => {
   //   return config;
   // },
+  images: {
+    domains: ["placeimg.com"],
+  },
 };

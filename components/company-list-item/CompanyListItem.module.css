@@ -1,0 +1,49 @@
+/** info **/
+.container {
+  box-sizing: border-box;
+  max-width: 400px;
+  background: var(--white);
+  border-radius: 8px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--majorOffset);
+  width: 31%;
+  gap: 1rem;
+}
+
+.container:hover {
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1));
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  max-height: 168px;
+  max-width: 168px;
+  margin: 44px auto;
+  border-radius: 50%;
+}
+.name {
+  font: normal 600 21px/26px var(--fontFamily);
+  text-transform: uppercase;
+  margin: 28px 0 8px;
+}
+.details {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font: normal 300 16px/20px var(--fontFamily);
+}
+
+@media (max-width: 980px) {
+  .container {
+    width: 45%;
+  }
+}
+
+@media (max-width: 720px) {
+  .container {
+    width: 100%;
+  }
+}

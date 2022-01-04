@@ -1,6 +1,8 @@
 import { IResolvers } from "@graphql-tools/utils";
 import { Company, ContextI, GetAllCompaniesInputI } from "./types";
 
+const DEFAULT_PAGINATION_LIMIT = 40;
+
 export const resolvers: IResolvers = {
   Query: {
     getAllCompanies(
@@ -33,7 +35,13 @@ export const resolvers: IResolvers = {
           (item) => item.city.toUpperCase() === input.city?.toUpperCase()
         );
       }
-      return result;
+
+      // added pagination
+
+      return result.splice(
+        input?.offset || 0,
+        input?.limit || DEFAULT_PAGINATION_LIMIT
+      );
     },
     getCompanyById(
       parent,

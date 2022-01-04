@@ -22,6 +22,8 @@ export const typeDefs = gql`
     search: String
     specialities: CompanySpecialities
     city: String
+    limit: Int
+    offset: Int
   }
 
   """

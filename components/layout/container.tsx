@@ -1,5 +1,8 @@
 import React from "react";
+import styles from "./Layout.module.css";
 
-const Layout: React.FC = ({ children }): JSX.Element => <div>{children}</div>;
+const Layout: React.FC = ({ children }): JSX.Element => (
+  <div className={styles.container}>{children}</div>
+);
 
 export default Layout;

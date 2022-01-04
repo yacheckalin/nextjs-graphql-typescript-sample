@@ -1,0 +1,35 @@
+/** footer **/
+.container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+/** buttons **/
+.primaryButton,
+.secondaryButton {
+  width: 280px;
+  height: 90px;
+  text-transform: uppercase;
+  font: normal 600 24px var(--fontFamily);
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: var(--white);
+  border: 4px solid rgba(0, 0, 0, 0.1);
+}
+.secondaryButton {
+  background: var(--grey);
+}
+.primaryButton:hover,
+.secondaryButton:hover {
+  border: 4px solid rgba(0, 0, 0, 0.4);
+}
+.primaryButton:focus,
+.secondaryButton:focus {
+  border: 4px solid rgba(0, 0, 0, 0.5);
+}
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+}
