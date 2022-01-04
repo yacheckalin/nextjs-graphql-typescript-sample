@@ -63,7 +63,7 @@ export default function Home() {
         !error &&
         data &&
         data.companies.length > 0 &&
-        !state.search && <Footer />}
+        !state.search && <Footer callback={companies} />}
     </div>
   );
 }

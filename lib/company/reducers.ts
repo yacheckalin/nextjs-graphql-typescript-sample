@@ -1,4 +1,4 @@
-import { TRIGGER_FILTER, TRIGGER_SEARCH } from "./constants";
+import { PAGGINATE, TRIGGER_FILTER, TRIGGER_SEARCH } from "./constants";
 import { CompanyStateValueI } from "./context";
 
 interface Action<T> {
@@ -16,7 +16,13 @@ interface FilterAction extends Action<typeof TRIGGER_FILTER> {
   };
 }
 
-export type Actions = SearchAction | FilterAction;
+interface PaginationAction extends Action<typeof PAGGINATE> {
+  payload: {
+    page: number;
+  };
+}
+
+export type Actions = SearchAction | FilterAction | PaginationAction;
 
 const contextReducers = (state: CompanyStateValueI, action: Actions) => {
   switch (action.type) {
@@ -25,6 +31,9 @@ const contextReducers = (state: CompanyStateValueI, action: Actions) => {
     }
     case TRIGGER_FILTER: {
       return { ...state, filter: action.payload.filter };
+    }
+    case PAGGINATE: {
+      return { ...state, page: action.payload.page };
     }
     default:
       return { ...state };

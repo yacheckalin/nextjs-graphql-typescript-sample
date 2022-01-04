@@ -11,7 +11,7 @@ interface Props {
 
 const Main: React.FC<Props> = ({ data }): JSX.Element => {
   return (
-    <main className={styles.container} data-testid="main-id">
+    <main className={styles.container} data-testid="main-id" aria-busy={false}>
       <CompanyList companies={data.companies} />
     </main>
   );

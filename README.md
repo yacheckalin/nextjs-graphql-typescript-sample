@@ -32,8 +32,9 @@ Then you will be able to access http://localhost:3000/api/graphql with playgroun
 
 #### Futher updates ...
 
-- Load More button
+- Add "Next" button for pagination
 - Read Info about Company in Modal
 - Edit Company info
 - Delete Company from the list
+- Add pagination with right caching strategy
 - Connect with the MongoDB / MySQL

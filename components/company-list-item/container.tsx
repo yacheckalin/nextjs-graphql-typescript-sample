@@ -18,7 +18,9 @@ const CompanyListItem: React.FC<Props> = ({ company }): JSX.Element => (
       className={styles.logo}
     />
     <div>
-      <p className={styles.name}>{company.name}</p>
+      <p className={styles.name}>
+        {company.name} : [{company.id}]
+      </p>
       <p className={styles.details}>{company.specialities}</p>
       <p className={styles.details}>{company.city}</p>
     </div>
