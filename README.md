@@ -30,11 +30,19 @@ npm run dev
 
 Then you will be able to access http://localhost:3000/api/graphql with playground
 
-#### Futher updates ...
+#### Future updates ...
 
-- Add "Next" button for pagination
-- Read Info about Company in Modal
-- Edit Company info
-- Delete Company from the list
+- Improve Error handling strategy
+- Info about Company in Modal
+- Edit Company info in the same modal
+- Delete Company from the list with confirmation modal
 - Add pagination with right caching strategy
 - Connect with the MongoDB / MySQL
+- Add more tests
+  - functional one
+  - e2e
+  - unit tests for helpers
+- Performance optimization
+  - improve Apollo client caching strategy
+  - use react-tracked for React.Context
+  - memoization for dump-components and hooks
