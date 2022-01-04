@@ -10,7 +10,7 @@ function createIsomorphLink() {
     const { SchemaLink } = require("@apollo/client/link/schema");
     // const { db } = require("../backend/db");
     const { schema } = require("../backend/schema");
-    return new SchemaLink({ schema /**context: { db }**/ });
+    return new SchemaLink({ schema });
   } else {
     const { HttpLink } = require("@apollo/client/link/http");
     return new HttpLink({
