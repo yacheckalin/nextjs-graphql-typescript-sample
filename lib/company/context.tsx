@@ -2,12 +2,12 @@ import React, { createContext, useContext, useReducer } from "react";
 import contextReducers, { Actions } from "./reducers";
 
 export interface CompanyStateValueI {
-  filter?: string;
+  filter?: string[];
   page: number;
   search?: string;
 }
 export const companyStateValue = {
-  filter: "",
+  filter: [],
   page: 1,
   search: "",
 };

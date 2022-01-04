@@ -14,12 +14,10 @@ export const resolvers: IResolvers = {
       let result = [...context.data];
       const { input } = args;
 
-      // filtering by specialities
-      if (input?.specialities) {
-        result = result.filter(
-          (item) =>
-            item.specialities.toUpperCase() ===
-            input.specialities?.toUpperCase()
+      // filtering by specialities (could be several)
+      if (input?.specialities && input.specialities.length > 0) {
+        result = result.filter((item) =>
+          input.specialities?.includes(item.specialities)
         );
       }
 

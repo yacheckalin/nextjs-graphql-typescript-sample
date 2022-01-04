@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.item {
+  margin-right: 20px;
+  padding: 10px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+}
+.item > label {
+  margin-right: 5px;
+}

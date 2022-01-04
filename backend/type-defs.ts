@@ -20,7 +20,7 @@ export const typeDefs = gql`
   """
   input GetAllCompaniesInput {
     search: String
-    specialities: CompanySpecialities
+    specialities: [CompanySpecialities!]
     city: String
     limit: Int
     offset: Int

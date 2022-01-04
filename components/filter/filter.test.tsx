@@ -1,16 +1,16 @@
 import { render, screen } from "@testing-library/react";
 import CompanyContextProvider from "../../lib/company/context";
 
-import Search from "./container";
+import Filter from "./container";
 
-test("<Search> component renders properly", () => {
+test("<Filter> component renders properly", () => {
   const callback = jest.fn();
   render(
     <CompanyContextProvider>
-      <Search callback={callback} />
+      <Filter callback={callback} />
     </CompanyContextProvider>
   );
 
-  const wrapper = screen.getByTestId("search-id");
+  const wrapper = screen.getByTestId("filter-id");
   expect(wrapper).toBeInTheDocument();
 });

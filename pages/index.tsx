@@ -11,6 +11,7 @@ import CompnayContextProvider, {
   useCompanyContext,
 } from "../lib/company/context";
 import { ELEMENTS_PER_PAGE } from "../lib/company/constants";
+import Filter from "../components/filter";
 
 export const GET_ALL_COMPANIES_QUERY = gql`
   query GET_ALL_COMPANIES_QUERY($input: GetAllCompaniesInput!) {
@@ -38,7 +39,7 @@ export default function Home() {
   const state = useCompanyContext();
   const [companies, { loading, error, data, called }] = useLazyQuery(
     GET_ALL_COMPANIES_QUERY,
-    { fetchPolicy: "no-cache" }
+    { fetchPolicy: state.filter ? "cache-first" : "cache-and-network" }
   );
 
   useEffect(() => {
@@ -48,6 +49,7 @@ export default function Home() {
   return (
     <div>
       <Header searchCallback={companies} />
+      <Filter callback={companies} />
       {loading ? (
         <div>Loading...</div>
       ) : error ? (

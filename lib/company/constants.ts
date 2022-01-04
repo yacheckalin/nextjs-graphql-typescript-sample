@@ -1,2 +1,3 @@
 export const TRIGGER_SEARCH = "TRIGGER_SEARCH";
+export const TRIGGER_FILTER = "TRIGGER_FILTER";
 export const ELEMENTS_PER_PAGE = 20;
