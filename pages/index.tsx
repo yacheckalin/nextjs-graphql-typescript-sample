@@ -3,6 +3,8 @@ import Head from "next/head";
 import { initializeApollo } from "../lib/client";
 import styles from "../styles/Home.module.css";
 import { gql, useQuery } from "@apollo/client";
+import CompanyList from "../components/company-list";
+import { CompanySpecialities } from "../backend/types";
 
 export const GET_ALL_COMPANIES_QUERY = gql`
   query GET_ALL_COMPANIES_QUERY($input: GetAllCompaniesInput!) {
@@ -22,7 +24,7 @@ interface CompaniesQuery {
     name: string;
     city: string;
     logo: string;
-    specialities: string;
+    specialities: CompanySpecialities;
   }[];
 }
 
@@ -46,11 +48,7 @@ export default function Home() {
         ) : result.error ? (
           <p>An error occured ...</p>
         ) : data && data.length > 0 ? (
-          <ul>
-            {data.map((item) => (
-              <li key={item.id}>{item.name}</li>
-            ))}
-          </ul>
+          <CompanyList companies={data} />
         ) : (
           <p> You donn't have companies yet!</p>
         )}
