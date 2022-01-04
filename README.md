@@ -27,3 +27,13 @@ npm run mock:generate
 That will update ./backend/data.json file entirely with 1000 items!
 
 You can fix that number by changing ./mock/generate.js file values
+
+#### GraphQL Playground
+
+You need to start application at first in development mode
+
+```bash
+npm run dev
+```
+
+Then you will be able to access http://localhost:3000/api/graphql with playground
