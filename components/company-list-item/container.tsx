@@ -9,7 +9,7 @@ interface Props {
 }
 
 const CompanyListItem: React.FC<Props> = ({ company }): JSX.Element => (
-  <div className={styles.container}>
+  <div className={styles.container} data-testid="company-list-id">
     <Image
       alt=""
       src={company.logo}

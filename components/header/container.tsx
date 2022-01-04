@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ searchCallback }): JSX.Element => (
-  <header className={styles.container}>
+  <header className={styles.container} data-testid="header-id">
     <h2>Company list</h2>
     <Search callback={searchCallback} />
   </header>

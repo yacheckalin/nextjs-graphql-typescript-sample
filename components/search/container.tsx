@@ -21,7 +21,7 @@ const Search: React.FC<Props> = ({ callback }): JSX.Element => {
   };
 
   return (
-    <div className={styles.search}>
+    <div className={styles.search} data-testid="search-id">
       <input
         type="text"
         placeholder="Search..."
