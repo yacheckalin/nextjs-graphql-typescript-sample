@@ -40,7 +40,7 @@ export const resolvers: IResolvers = {
 
       return result.splice(
         input?.offset || 0,
-        input?.limit || DEFAULT_PAGINATION_LIMIT
+        input?.limit && !input.search ? -1 : DEFAULT_PAGINATION_LIMIT
       );
     },
     getCompanyById(

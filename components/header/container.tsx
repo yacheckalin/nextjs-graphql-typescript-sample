@@ -1,13 +1,16 @@
 import React from "react";
+import Search from "../search";
 
 import styles from "./Header.module.css";
 
-const Header: React.FC = (): JSX.Element => (
+interface Props {
+  searchCallback: () => void;
+}
+
+const Header: React.FC<Props> = ({ searchCallback }): JSX.Element => (
   <header className={styles.container}>
     <h2>Company list</h2>
-    <div className={styles.search}>
-      <input type="text" placeholder="Search..." />
-    </div>
+    <Search callback={searchCallback} />
   </header>
 );
 

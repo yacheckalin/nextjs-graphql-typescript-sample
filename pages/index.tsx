@@ -1,14 +1,12 @@
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import { initializeApollo } from "../lib/client";
-import { gql, useQuery } from "@apollo/client";
-import CompanyList from "../components/company-list";
+import { gql, useLazyQuery } from "@apollo/client";
 import { CompanySpecialities } from "../backend/types";
 
-import styles from "../styles/Home.module.css";
 import Header from "../components/header";
 import Main from "../components/main";
 import Footer from "../components/footer";
+import { useEffect } from "react";
 
 export const GET_ALL_COMPANIES_QUERY = gql`
   query GET_ALL_COMPANIES_QUERY($input: GetAllCompaniesInput!) {
@@ -33,16 +31,29 @@ export interface CompaniesQuery {
 }
 
 export default function Home() {
-  const result = useQuery<CompaniesQuery>(GET_ALL_COMPANIES_QUERY, {
-    variables: { input: {} },
-  });
+  const [companies, { loading, error, data, called }] = useLazyQuery(
+    GET_ALL_COMPANIES_QUERY,
+    { fetchPolicy: "no-cache" }
+  );
+
+  useEffect(() => {
+    companies({ variables: { input: {} } });
+  }, []);
 
   return (
-    <>
-      <Header />
-      <Main result={result} />
-      <Footer />
-    </>
+    <div>
+      <Header searchCallback={companies} />
+      {loading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>An error occured</div>
+      ) : data ? (
+        <Main data={data} />
+      ) : (
+        <div>You don't have companies yet!</div>
+      )}
+      {/* {!loading && !error && data && <Footer />} */}
+    </div>
   );
 }
 

@@ -2,8 +2,6 @@ import React from "react";
 import { Company } from "../../backend/types";
 import CompanyListItem from "../company-list-item";
 
-import style from "./CompanyList.module.css";
-
 interface Props {
   companies: Company[];
 }
