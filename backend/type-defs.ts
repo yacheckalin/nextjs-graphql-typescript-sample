@@ -19,7 +19,7 @@ export const typeDefs = gql`
   We can use
   """
   input GetAllCompaniesInput {
-    name: String
+    search: String
     specialities: CompanySpecialities
     city: String
   }
