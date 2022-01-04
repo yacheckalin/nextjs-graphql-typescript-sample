@@ -7,6 +7,10 @@ import Header from "../components/header";
 import Main from "../components/main";
 import Footer from "../components/footer";
 import { useEffect } from "react";
+import CompnayContextProvider, {
+  useCompanyContext,
+} from "../lib/company/context";
+import { ELEMENTS_PER_PAGE } from "../lib/company/constants";
 
 export const GET_ALL_COMPANIES_QUERY = gql`
   query GET_ALL_COMPANIES_QUERY($input: GetAllCompaniesInput!) {
@@ -31,13 +35,14 @@ export interface CompaniesQuery {
 }
 
 export default function Home() {
+  const state = useCompanyContext();
   const [companies, { loading, error, data, called }] = useLazyQuery(
     GET_ALL_COMPANIES_QUERY,
     { fetchPolicy: "no-cache" }
   );
 
   useEffect(() => {
-    companies({ variables: { input: {} } });
+    companies({ variables: { input: { limit: ELEMENTS_PER_PAGE } } });
   }, []);
 
   return (
@@ -47,12 +52,16 @@ export default function Home() {
         <div>Loading...</div>
       ) : error ? (
         <div>An error occured</div>
-      ) : data ? (
+      ) : data && data.companies.length > 0 ? (
         <Main data={data} />
       ) : (
         <div>You don't have companies yet!</div>
       )}
-      {/* {!loading && !error && data && <Footer />} */}
+      {!loading &&
+        !error &&
+        data &&
+        data.companies.length > 0 &&
+        !state.search && <Footer />}
     </div>
   );
 }
@@ -64,7 +73,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await apolloClient.query({
     query: GET_ALL_COMPANIES_QUERY,
     variables: {
-      input: {},
+      input: { limit: ELEMENTS_PER_PAGE },
     },
   });
 

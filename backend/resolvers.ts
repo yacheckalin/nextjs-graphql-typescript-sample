@@ -1,4 +1,5 @@
 import { IResolvers } from "@graphql-tools/utils";
+import { ELEMENTS_PER_PAGE } from "../lib/company/constants";
 import { Company, ContextI, GetAllCompaniesInputI } from "./types";
 
 const DEFAULT_PAGINATION_LIMIT = 40;
@@ -38,9 +39,11 @@ export const resolvers: IResolvers = {
 
       // added pagination
 
+      const limit = !input?.limit ? ELEMENTS_PER_PAGE : input.limit;
+
       return result.splice(
         input?.offset || 0,
-        input?.limit && !input.search ? -1 : DEFAULT_PAGINATION_LIMIT
+        input?.search ? result.length : limit
       );
     },
     getCompanyById(

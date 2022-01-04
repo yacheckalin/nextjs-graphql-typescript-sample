@@ -1,0 +1,2 @@
+export const TRIGGER_SEARCH = "TRIGGER_SEARCH";
+export const ELEMENTS_PER_PAGE = 20;
