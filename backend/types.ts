@@ -14,6 +14,8 @@ export interface GetAllCompaniesInputI {
   search?: string;
   specialities?: CompanySpecialities;
   city?: string;
+  limit?: number;
+  offset?: number;
 }
 
 export interface GetCompanyByIdI {

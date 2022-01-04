@@ -18,6 +18,7 @@ for (let i = 0; i < DATA_LIMIT; i++) {
       "electrical",
     ]),
   };
+  faker.seed(Math.floor(i * 123) + 45);
 
   result.data.push(item);
 }
