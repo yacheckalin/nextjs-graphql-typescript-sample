@@ -1,4 +1,10 @@
-import { PAGGINATE, TRIGGER_FILTER, TRIGGER_SEARCH } from "./constants";
+import { Company } from "../../backend/types";
+import {
+  PAGGINATE,
+  TRIGGER_FILTER,
+  TRIGGER_MODAL,
+  TRIGGER_SEARCH,
+} from "./constants";
 import { CompanyStateValueI } from "./context";
 
 interface Action<T> {
@@ -22,7 +28,20 @@ interface PaginationAction extends Action<typeof PAGGINATE> {
   };
 }
 
-export type Actions = SearchAction | FilterAction | PaginationAction;
+interface ModalInitAction extends Action<typeof TRIGGER_MODAL> {
+  payload: {
+    modal: {
+      data: Company;
+      open: boolean;
+    };
+  };
+}
+
+export type Actions =
+  | SearchAction
+  | FilterAction
+  | PaginationAction
+  | ModalInitAction;
 
 const contextReducers = (state: CompanyStateValueI, action: Actions) => {
   switch (action.type) {
@@ -34,6 +53,9 @@ const contextReducers = (state: CompanyStateValueI, action: Actions) => {
     }
     case PAGGINATE: {
       return { ...state, page: action.payload.page };
+    }
+    case TRIGGER_MODAL: {
+      return { ...state, modal: { ...action.payload.modal } };
     }
     default:
       return { ...state };
