@@ -7,11 +7,10 @@ import Header from "../components/header";
 import Main from "../components/main";
 import Footer from "../components/footer";
 import { useEffect } from "react";
-import CompnayContextProvider, {
-  useCompanyContext,
-} from "../lib/company/context";
+import { useCompanyContext } from "../lib/company/context";
 import { ELEMENTS_PER_PAGE } from "../lib/company/constants";
 import Filter from "../components/filter";
+import Modal from "../components/modal";
 
 export const GET_ALL_COMPANIES_QUERY = gql`
   query GET_ALL_COMPANIES_QUERY($input: GetAllCompaniesInput!) {
@@ -19,6 +18,17 @@ export const GET_ALL_COMPANIES_QUERY = gql`
       id
       name
       city
+      logo
+      specialities
+    }
+  }
+`;
+
+export const UPDATE_COMPANY_BY_ID = gql`
+  mutation UPDATE_COMPANY_BY_ID($input: UpdateCompanyInput!) {
+    updateCompany(input: $input) {
+      id
+      name
       logo
       specialities
     }
@@ -64,6 +74,9 @@ export default function Home() {
         data &&
         data.companies.length > 0 &&
         !state.search && <Footer callback={companies} />}
+      {state.modal.open && state.modal?.data && (
+        <Modal data={state.modal.data} />
+      )}
     </div>
   );
 }

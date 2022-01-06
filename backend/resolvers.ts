@@ -1,4 +1,4 @@
-import { IResolvers } from "@graphql-tools/utils";
+import { fixSchemaAst, IResolvers } from "@graphql-tools/utils";
 import { ELEMENTS_PER_PAGE } from "../lib/company/constants";
 import { Company, ContextI, GetAllCompaniesInputI } from "./types";
 
@@ -63,7 +63,30 @@ export const resolvers: IResolvers = {
     createCompany(parent, args, context) {
       return { ...args.input, id: 1 };
     },
-    updateCompany(parent, args, context) {
+    updateCompany(parent, args, context: ContextI) {
+      const result = context.data.map((item) =>
+        +item.id == args.input.id
+          ? {
+              ...item,
+              name: args.input.name,
+              specialities: args.input.specialities,
+              logo: args.input.logo,
+            }
+          : item
+      );
+
+      const fs = require("fs");
+
+      fs.writeFile(
+        "./backend/data.json",
+        JSON.stringify({ data: result }),
+        "utf8",
+        function (e: Error) {
+          if (e) throw e;
+          console.log("complete");
+        }
+      );
+
       return { ...args.input };
     },
     deleteCompany(parent, args, context) {

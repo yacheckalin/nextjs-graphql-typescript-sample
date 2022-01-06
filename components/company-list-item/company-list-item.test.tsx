@@ -1,7 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { CompanySpecialities } from "../../backend/types";
+import CompanyContextProvider, {
+  CompanyDispatchContext,
+} from "../../lib/company/context";
 
 import CompanyListItem from "./container";
+
+export const ApolloWrapper: React.FC = ({ children }) => (
+  <CompanyContextProvider>{children}</CompanyContextProvider>
+);
 
 test("<CompanyList> component renders properly", () => {
   const mockedCompany = {
@@ -11,7 +18,12 @@ test("<CompanyList> component renders properly", () => {
     specialities: CompanySpecialities.plumbing,
     city: "New York",
   };
-  render(<CompanyListItem company={mockedCompany} />);
+
+  render(
+    <ApolloWrapper>
+      <CompanyListItem company={mockedCompany} />
+    </ApolloWrapper>
+  );
 
   const wrapper = screen.getByTestId("company-list-id");
   expect(wrapper).toBeInTheDocument();

@@ -1,15 +1,24 @@
 import React, { createContext, useContext, useReducer } from "react";
+import { Company } from "../../backend/types";
 import contextReducers, { Actions } from "./reducers";
 
 export interface CompanyStateValueI {
   filter?: string[];
   page: number;
   search?: string;
+  modal: {
+    open: boolean;
+    data: Company | null;
+  };
 }
 export const companyStateValue = {
   filter: [],
   page: 1,
   search: "",
+  modal: {
+    open: false,
+    data: null,
+  },
 };
 
 export const CompanyStateContext =
