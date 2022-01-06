@@ -56,6 +56,7 @@ const Modal: React.FC<Props> = ({ data }) => {
                 search: context.search,
               },
             },
+            fetchPolicy: "cache-first",
           },
         ],
       });
