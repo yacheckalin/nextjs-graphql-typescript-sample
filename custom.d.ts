@@ -24,3 +24,5 @@ declare global {
     google?: any;
   }
 }
+
+declare const google: any;

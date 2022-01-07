@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Company } from "../../backend/types";
 import { ELEMENTS_PER_PAGE, TRIGGER_MODAL } from "../../lib/company/constants";
 import {
@@ -25,7 +25,9 @@ const Modal: React.FC<Props> = ({ data }) => {
 
   const [company, setCompany] = useState<Company>(data);
 
-  const closeModalHandler = (e: React.FormEvent<HTMLButtonElement>) => {
+  const closeModalHandler = (
+    e: React.FormEvent<HTMLButtonElement> | MouseEvent
+  ) => {
     e.preventDefault();
     dispatch({
       type: TRIGGER_MODAL,
@@ -78,9 +80,24 @@ const Modal: React.FC<Props> = ({ data }) => {
     setCompany((prev) => ({ ...prev, [name]: value }));
   };
 
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (innerRef.current && !innerRef.current?.contains(e.target)) {
+        closeModalHandler(e);
+      }
+    };
+
+    document.addEventListener("click", (e) => handleClick(e));
+    return () => {
+      document.removeEventListener("click", (e) => handleClick(e));
+    };
+  }, []);
+
   return (
     <div className={`${styles.containerOpen}`} data-testid="modal-container-id">
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} ref={innerRef}>
         <div className={styles.header}>Edit user</div>
         <div className={styles.error}>{error}</div>
         <div className={styles.content}>

@@ -20,7 +20,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  max-width: 1328px;
+  max-width: 800px;
   width: 100%;
   padding: var(--majorOffset);
   background: var(--grey);

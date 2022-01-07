@@ -20,7 +20,6 @@ const CompanyAdress: React.FC<Props> = ({ lat, lng }): JSX.Element => {
 
     let map;
     loader.load().then(() => {
-      const google = window.google;
       map = new google.maps.Map(googleMapRef.current, {
         zoom: 8,
         center: { lat, lng },
@@ -30,7 +29,7 @@ const CompanyAdress: React.FC<Props> = ({ lat, lng }): JSX.Element => {
         zoomControl: false,
       });
     });
-  });
+  }, []);
 
   return (
     <div
