@@ -33,8 +33,6 @@ Then you will be able to access http://localhost:3000/api/graphql with playgroun
 #### Future updates ...
 
 - Improve Error handling strategy
-- Info about Company in Modal
-- Edit Company info in the same modal
 - Delete Company from the list with confirmation modal
 - Add pagination with right caching strategy
 - Connect with the MongoDB / MySQL
