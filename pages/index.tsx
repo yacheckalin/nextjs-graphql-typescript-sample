@@ -20,6 +20,8 @@ export const GET_ALL_COMPANIES_QUERY = gql`
       city
       logo
       specialities
+      lat
+      lng
     }
   }
 `;
@@ -42,6 +44,8 @@ export interface CompaniesQuery {
     city: string;
     logo: string;
     specialities: CompanySpecialities;
+    lat: string;
+    lng: string;
   }[];
 }
 

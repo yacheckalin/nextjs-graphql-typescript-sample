@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
+    "@googlemaps/js-api-loader": "^1.13.1",
     "@graphql-tools/schema": "^7.1.5",
     "@graphql-tools/utils": "^7.10.0",
     "@types/react": "^17.0.38",

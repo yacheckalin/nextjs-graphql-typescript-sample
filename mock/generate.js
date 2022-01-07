@@ -17,6 +17,8 @@ for (let i = 0; i < DATA_LIMIT; i++) {
       "excavation",
       "electrical",
     ]),
+    lat: parseFloat(faker.address.latitude()),
+    lng: parseFloat(faker.address.longitude()),
   };
   faker.seed(i);
 

@@ -9,6 +9,8 @@ export interface Company {
   logo: string;
   city: string;
   specialities: CompanySpecialities;
+  lat: number;
+  lng: number;
 }
 export interface GetAllCompaniesInputI {
   search?: string;

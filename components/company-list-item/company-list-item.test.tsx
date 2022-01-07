@@ -17,6 +17,8 @@ test("<CompanyList> component renders properly", () => {
     logo: "http://placeimg.com/640/480",
     specialities: CompanySpecialities.plumbing,
     city: "New York",
+    lat: -11,
+    lng: 34,
   };
 
   render(

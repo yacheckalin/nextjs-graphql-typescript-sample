@@ -13,6 +13,8 @@ export const typeDefs = gql`
     logo: String!
     specialities: CompanySpecialities!
     city: String!
+    lat: Float!
+    lng: Float!
   }
 
   """

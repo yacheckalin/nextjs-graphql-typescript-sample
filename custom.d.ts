@@ -12,3 +12,15 @@ declare module "*.graphql" {
 //   const classNames: IClassNames;
 //   export = classNames;
 // }
+
+declare namespace NodeJS {
+  interface ProcessEnv {
+    GOOGLE_MAP_API_KEY: string;
+  }
+}
+
+declare global {
+  interface Window {
+    google?: any;
+  }
+}

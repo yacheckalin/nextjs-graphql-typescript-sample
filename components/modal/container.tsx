@@ -7,6 +7,7 @@ import {
   useCompanyDispatchContext,
 } from "../../lib/company/context";
 import { GET_ALL_COMPANIES_QUERY, UPDATE_COMPANY_BY_ID } from "../../pages";
+import CompanyAdress from "../company-address";
 
 import buttons from "../footer/Footer.module.css";
 import styles from "./Modal.module.css";
@@ -83,7 +84,7 @@ const Modal: React.FC<Props> = ({ data }) => {
         <div className={styles.header}>Edit user</div>
         <div className={styles.error}>{error}</div>
         <div className={styles.content}>
-          <img src="./map.png" alt="" />
+          <CompanyAdress lat={company.lat} lng={company.lng} />
           <form action="#" className={styles.form}>
             <div className={styles.control}>
               <label htmlFor="name">Company name</label>
