@@ -3,7 +3,10 @@ import debounce from "lodash.debounce";
 
 import styles from "./Search.module.css";
 import { DEBOUNCE_SEARCH_VALUE } from "../../lib/constants";
-import { useCompanyDispatchContext } from "../../lib/company/context";
+import {
+  useCompanyContext,
+  useCompanyDispatchContext,
+} from "../../lib/company/context";
 import { TRIGGER_SEARCH } from "../../lib/company/constants";
 
 interface Props {
@@ -13,6 +16,7 @@ interface Props {
 const Search: React.FC<Props> = ({ callback }): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useCompanyDispatchContext();
+  const context = useCompanyContext();
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setSearchTerm(e.currentTarget.value);
@@ -21,7 +25,9 @@ const Search: React.FC<Props> = ({ callback }): JSX.Element => {
         type: TRIGGER_SEARCH,
         payload: { search: searchTerm },
       });
-      callback({ variables: { input: { search } } });
+      callback({
+        variables: { input: { search, specialities: context.filter } },
+      });
     }, DEBOUNCE_SEARCH_VALUE);
     debounceRequest(e.currentTarget.value);
   };

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { CompanySpecialities } from "../../backend/types";
 import { TRIGGER_FILTER, TRIGGER_SEARCH } from "../../lib/company/constants";
-import { useCompanyDispatchContext } from "../../lib/company/context";
+import {
+  useCompanyContext,
+  useCompanyDispatchContext,
+} from "../../lib/company/context";
 
 import styles from "./Filter.module.css";
 
@@ -11,6 +14,7 @@ interface Props {
 
 const Filter: React.FC<Props> = ({ callback }): JSX.Element => {
   const dispatch = useCompanyDispatchContext();
+  const context = useCompanyContext();
   const [currentFilters, setCurrentFilters] = useState<string[]>([]);
 
   //TODO: This part could be changed for dynamic fetching from DB
@@ -32,7 +36,14 @@ const Filter: React.FC<Props> = ({ callback }): JSX.Element => {
       type: TRIGGER_FILTER,
       payload: { filter: [...arr] },
     });
-    callback({ variables: { input: { specialities: [...arr] } } });
+    callback({
+      variables: {
+        input: {
+          specialities: [...arr],
+          search: context.search,
+        },
+      },
+    });
   };
 
   return (
