@@ -15,41 +15,45 @@ export const resolvers: IResolvers = {
       let result = [];
       const { input } = args;
 
+      // added pagination
+      const limit = !input?.limit ? ELEMENTS_PER_PAGE : input.limit;
+      const skip = !input?.offset ? 0 : input.offset;
+      const specialities =
+        input?.specialities &&
+        Array.isArray(input.specialities) &&
+        input.specialities.length > 0 &&
+        input.specialities.map((item) => ({
+          specialities: item,
+        }));
+      const search = input?.search && input.search.trim() ? input.search : null;
+
+      const filterCondition = {
+        [`$and`]: [
+          search ? { [`$text`]: { [`$search`]: search } } : {},
+          input?.specialities && input.specialities.length > 0
+            ? specialities && {
+                $or: [...specialities],
+              }
+            : {},
+        ],
+      };
+
+      // console.log(filterCondition);
+
       try {
-        result = await context.db.collection("companies").find({}).toArray();
-
-        // filtering by specialities (could be several)
-        if (input?.specialities && input.specialities.length > 0) {
-          result = result.filter((item) =>
-            input.specialities?.includes(item.specialities)
-          );
-        }
-
-        // filtering by search
-        if (input?.search) {
-          result = result.filter((item) =>
-            item.name.match(new RegExp(`${input.search}`, `is`))
-          );
-        }
-
-        // filtering by city
-        if (input?.city) {
-          result = result.filter(
-            (item) => item.city.toUpperCase() === input.city?.toUpperCase()
-          );
-        }
+        result = await context.db
+          .collection("companies")
+          .find(filterCondition)
+          .sort({ name: 1 })
+          .limit(limit)
+          .skip(skip)
+          .toArray();
       } catch (e) {
         console.log(e);
         throw new Error("An error occured");
       }
 
-      // added pagination
-      const limit = !input?.limit ? ELEMENTS_PER_PAGE : input.limit;
-
-      return result.splice(
-        input?.offset || 0,
-        input?.search ? result.length : limit
-      );
+      return result;
     },
     async getCompanyById(parent, args: { input: any }, context: ContextI) {
       let result;

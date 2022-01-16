@@ -26,7 +26,9 @@ const Search: React.FC<Props> = ({ callback }): JSX.Element => {
         payload: { search: searchTerm },
       });
       callback({
-        variables: { input: { search, specialities: context.filter } },
+        variables: {
+          input: { search: searchTerm.trim(), specialities: context.filter },
+        },
       });
     }, DEBOUNCE_SEARCH_VALUE);
     debounceRequest(e.currentTarget.value);

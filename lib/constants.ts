@@ -1,1 +1,1 @@
-export const DEBOUNCE_SEARCH_VALUE = 700;
+export const DEBOUNCE_SEARCH_VALUE = 450;
