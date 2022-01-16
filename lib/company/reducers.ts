@@ -46,10 +46,10 @@ export type Actions =
 const contextReducers = (state: CompanyStateValueI, action: Actions) => {
   switch (action.type) {
     case TRIGGER_SEARCH: {
-      return { ...state, search: action.payload.search };
+      return { ...state, search: action.payload.search, page: 1 };
     }
     case TRIGGER_FILTER: {
-      return { ...state, filter: action.payload.filter };
+      return { ...state, filter: action.payload.filter, page: 1 };
     }
     case PAGGINATE: {
       return { ...state, page: action.payload.page };
