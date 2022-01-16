@@ -6,7 +6,7 @@ export enum CompanySpecialities {
   electrical = "electrical",
 }
 export interface Company {
-  id: string;
+  _id: string;
   name: string;
   logo: string;
   city: string;

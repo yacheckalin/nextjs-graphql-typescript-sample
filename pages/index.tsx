@@ -85,16 +85,16 @@ export default function Home() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  //TODO: Add check for '?search=TEXT&filter=TEXT&limit=2&offset=2' here
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   //TODO: Add check for '?search=TEXT&filter=TEXT&limit=2&offset=2' here
 
-  const apolloClient = initializeApollo();
-  await apolloClient.query({
-    query: GET_ALL_COMPANIES_QUERY,
-    variables: {
-      input: { limit: ELEMENTS_PER_PAGE },
-    },
-  });
+//   const apolloClient = initializeApollo();
+//   await apolloClient.query({
+//     query: GET_ALL_COMPANIES_QUERY,
+//     variables: {
+//       input: { limit: ELEMENTS_PER_PAGE },
+//     },
+//   });
 
-  return { props: { initialApolloState: apolloClient.cache.extract() } };
-};
+//   return { props: { initialApolloState: apolloClient.cache.extract() } };
+// };

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { connectToDatabase } from "../backend/db";
 
 type MyApolloCache = any;
 

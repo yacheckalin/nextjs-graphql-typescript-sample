@@ -41,7 +41,7 @@ const Modal: React.FC<Props> = ({ data }) => {
       const result = await updateCompany({
         variables: {
           input: {
-            id: company.id,
+            id: company._id,
             name: company.name,
             city: company.city,
             specialities: company.specialities,

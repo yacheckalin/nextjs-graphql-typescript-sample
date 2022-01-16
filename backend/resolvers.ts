@@ -1,7 +1,7 @@
 import { IResolvers } from "@graphql-tools/utils";
 import { ELEMENTS_PER_PAGE } from "../lib/company/constants";
 import { ContextI, GetAllCompaniesInputI } from "./types";
-import {  ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 
 const DEFAULT_PAGINATION_LIMIT = 40;
 

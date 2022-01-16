@@ -22,7 +22,6 @@ export default async function handler(
     res.end();
     return false;
   }
-
   let { db } = await connectToDatabase();
 
   const apolloServer = new ApolloServer({

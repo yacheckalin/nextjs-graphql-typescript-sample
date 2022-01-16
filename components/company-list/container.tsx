@@ -9,7 +9,7 @@ interface Props {
 const CompanyList: React.FC<Props> = ({ companies }): JSX.Element => (
   <>
     {companies.map((item) => (
-      <CompanyListItem company={item} key={item.id} />
+      <CompanyListItem company={item} key={item._id} />
     ))}
   </>
 );
