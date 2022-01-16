@@ -17,7 +17,6 @@ const Footer: React.FC<Props> = ({ callback }): JSX.Element => {
 
   const handleClick = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
     callback({
       variables: {
         input: {

@@ -83,15 +83,15 @@ const Modal: React.FC<Props> = ({ data }) => {
   const innerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: MouseEvent & { target: Element }) => {
       if (innerRef.current && !innerRef.current?.contains(e.target)) {
         closeModalHandler(e);
       }
     };
 
-    document.addEventListener("click", (e) => handleClick(e));
+    document.addEventListener("click", (e: any) => handleClick(e));
     return () => {
-      document.removeEventListener("click", (e) => handleClick(e));
+      document.removeEventListener("click", (e: any) => handleClick(e));
     };
   }, []);
 
