@@ -16,6 +16,9 @@ declare module "*.graphql" {
 declare namespace NodeJS {
   interface ProcessEnv {
     GOOGLE_MAP_API_KEY: string;
+    MONGO_INITDB_DATABASE: string;
+    MONGO_INITDB_ROOT_USERNAME: string;
+    MONGO_INITDB_ROOT_PASSWORD: string;
   }
 }
 

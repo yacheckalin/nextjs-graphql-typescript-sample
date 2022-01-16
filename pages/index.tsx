@@ -15,7 +15,7 @@ import Modal from "../components/modal";
 export const GET_ALL_COMPANIES_QUERY = gql`
   query GET_ALL_COMPANIES_QUERY($input: GetAllCompaniesInput!) {
     companies: getAllCompanies(input: $input) {
-      id
+      _id
       name
       city
       logo
@@ -29,7 +29,7 @@ export const GET_ALL_COMPANIES_QUERY = gql`
 export const UPDATE_COMPANY_BY_ID = gql`
   mutation UPDATE_COMPANY_BY_ID($input: UpdateCompanyInput!) {
     updateCompany(input: $input) {
-      id
+      _id
       name
       logo
       specialities
@@ -39,7 +39,7 @@ export const UPDATE_COMPANY_BY_ID = gql`
 
 export interface CompaniesQuery {
   companies: {
-    id: number;
+    _id: string;
     name: string;
     city: string;
     logo: string;

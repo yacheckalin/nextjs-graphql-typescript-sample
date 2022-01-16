@@ -1,10 +1,8 @@
 const fs = require("fs");
 const faker = require("faker");
 
-const DATA_LIMIT = 1000;
-const result = {
-  data: [],
-};
+const DATA_LIMIT = 500;
+const result = [];
 
 for (let i = 0; i < DATA_LIMIT; i++) {
   const item = {
@@ -22,11 +20,11 @@ for (let i = 0; i < DATA_LIMIT; i++) {
   };
   faker.seed(i);
 
-  result.data.push(item);
+  result.push(item);
 }
 
 const json = JSON.stringify(result);
-fs.writeFile("./backend/data.json", json, "utf8", function (e) {
+fs.writeFile("./fixture/companies.json", json, "utf8", function (e) {
   if (e) throw e;
   console.log("complete");
 });

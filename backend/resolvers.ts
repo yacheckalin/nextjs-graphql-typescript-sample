@@ -1,42 +1,49 @@
-import { fixSchemaAst, IResolvers } from "@graphql-tools/utils";
+import { IResolvers } from "@graphql-tools/utils";
 import { ELEMENTS_PER_PAGE } from "../lib/company/constants";
-import { Company, ContextI, GetAllCompaniesInputI } from "./types";
+import { ContextI, GetAllCompaniesInputI } from "./types";
+import {  ObjectId } from "mongodb";
 
 const DEFAULT_PAGINATION_LIMIT = 40;
 
 export const resolvers: IResolvers = {
   Query: {
-    getAllCompanies(
+    async getAllCompanies(
       parent,
       args: { input?: GetAllCompaniesInputI },
       context: ContextI
     ) {
-      let result = [...context.data];
+      let result = [];
       const { input } = args;
 
-      // filtering by specialities (could be several)
-      if (input?.specialities && input.specialities.length > 0) {
-        result = result.filter((item) =>
-          input.specialities?.includes(item.specialities)
-        );
-      }
+      try {
+        result = await context.db.collection("companies").find({}).toArray();
 
-      // filtering by search
-      if (input?.search) {
-        result = result.filter((item) =>
-          item.name.match(new RegExp(`${input.search}`, `is`))
-        );
-      }
+        // filtering by specialities (could be several)
+        if (input?.specialities && input.specialities.length > 0) {
+          result = result.filter((item) =>
+            input.specialities?.includes(item.specialities)
+          );
+        }
 
-      // filtering by city
-      if (input?.city) {
-        result = result.filter(
-          (item) => item.city.toUpperCase() === input.city?.toUpperCase()
-        );
+        // filtering by search
+        if (input?.search) {
+          result = result.filter((item) =>
+            item.name.match(new RegExp(`${input.search}`, `is`))
+          );
+        }
+
+        // filtering by city
+        if (input?.city) {
+          result = result.filter(
+            (item) => item.city.toUpperCase() === input.city?.toUpperCase()
+          );
+        }
+      } catch (e) {
+        console.log(e);
+        throw new Error("An error occured");
       }
 
       // added pagination
-
       const limit = !input?.limit ? ELEMENTS_PER_PAGE : input.limit;
 
       return result.splice(
@@ -44,53 +51,65 @@ export const resolvers: IResolvers = {
         input?.search ? result.length : limit
       );
     },
-    getCompanyById(
-      parent,
-      args: { input: any },
-      context: ContextI
-    ): Company | undefined {
-      let result = undefined;
-      const id = parseInt(args.input?.id);
-      if (id) {
-        result = context.data.find((item) => item.id === id);
+    async getCompanyById(parent, args: { input: any }, context: ContextI) {
+      let result;
+      const id = args.input?.id;
+      try {
+        if (id) {
+          result = await context.db
+            .collection("companies")
+            .findOne({ _id: new ObjectId(id) });
+        }
+      } catch (e) {
+        throw new Error("An error occured");
       }
 
       return result;
     },
   },
-  //TODO: Will be added soon
   Mutation: {
+    //TODO: Will be added soon
     createCompany(parent, args, context) {
       return { ...args.input, id: 1 };
     },
-    updateCompany(parent, args, context: ContextI) {
-      const result = context.data.map((item) =>
-        +item.id == args.input.id
-          ? {
-              ...item,
+    async updateCompany(parent, args, context: ContextI) {
+      try {
+        await context.db.collection("companies").updateOne(
+          { _id: new ObjectId(args.input.id) },
+          {
+            $set: {
               name: args.input.name,
               specialities: args.input.specialities,
               logo: args.input.logo,
-            }
-          : item
-      );
+            },
+          }
+        );
+      } catch (e) {
+        throw new Error("An error occured");
+      }
 
-      const fs = require("fs");
-
-      fs.writeFile(
-        "./backend/data.json",
-        JSON.stringify({ data: result }),
-        "utf8",
-        function (e: Error) {
-          if (e) throw e;
-          console.log("complete");
-        }
-      );
-
-      return { ...args.input };
+      return { ...args.input, _id: new ObjectId(args.input.id) };
     },
-    deleteCompany(parent, args, context) {
-      return null;
+    async deleteCompany(parent, args, context) {
+      let result;
+      let item;
+      try {
+        item = await context.db.collection("companies").findOne({
+          _id: new ObjectId(args.input.id),
+        });
+
+        if (!item) {
+          throw new Error("Item not found!");
+        } else {
+          result = await context.db
+            .collection("companies")
+            .deleteOne({ _id: new ObjectId(args.input.id) });
+        }
+      } catch (e) {
+        throw new Error("An error occured");
+      }
+
+      return { ...item };
     },
   },
 };

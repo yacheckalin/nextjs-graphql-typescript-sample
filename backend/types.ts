@@ -1,10 +1,12 @@
+import { Db } from "mongodb";
+
 export enum CompanySpecialities {
   excavation = "excavation",
   plumbing = "plumbing",
   electrical = "electrical",
 }
 export interface Company {
-  id: number;
+  id: string;
   name: string;
   logo: string;
   city: string;
@@ -21,8 +23,8 @@ export interface GetAllCompaniesInputI {
 }
 
 export interface GetCompanyByIdI {
-  id: number;
+  id: string;
 }
 export interface ContextI {
-  data: Company[];
+  db: Db;
 }

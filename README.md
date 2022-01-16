@@ -16,9 +16,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 npm run mock:generate
 ```
 
-That will update ./backend/data.json file entirely with 1000 items!
+That will update ./fixture/companies.json file entirely with 1000 items!
 
 You can fix that number by changing ./mock/generate.js file values
+
+#### Start docker containers
+
+You need to start docker container after generating fixture data!
+
+```bash
+docker-compose up
+```
 
 #### GraphQL Playground
 
@@ -35,7 +43,6 @@ Then you will be able to access http://localhost:3000/api/graphql with playgroun
 - Improve Error handling strategy
 - Delete Company from the list with confirmation modal
 - Add pagination with right caching strategy
-- Connect with the MongoDB / MySQL
 - Add more tests
   - functional one
   - e2e

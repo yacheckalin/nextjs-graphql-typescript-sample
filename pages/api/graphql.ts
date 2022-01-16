@@ -2,19 +2,8 @@ import { ApolloServer } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { NextApiRequest, NextApiResponse } from "next";
 import { schema } from "../../backend/schema";
-import { data } from "../../backend/data.json";
 
-const apolloServer = new ApolloServer({
-  schema,
-  plugins: [
-    ...(process.env.NODE_ENV === "development"
-      ? [ApolloServerPluginLandingPageGraphQLPlayground]
-      : []),
-  ],
-  context: { data },
-});
-
-const startServer = apolloServer.start();
+import { connectToDatabase } from "../../backend/db";
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,6 +22,20 @@ export default async function handler(
     res.end();
     return false;
   }
+
+  let { db } = await connectToDatabase();
+
+  const apolloServer = new ApolloServer({
+    schema,
+    plugins: [
+      ...(process.env.NODE_ENV === "development"
+        ? [ApolloServerPluginLandingPageGraphQLPlayground]
+        : []),
+    ],
+    context: { db },
+  });
+
+  const startServer = apolloServer.start();
 
   await startServer;
   await apolloServer.createHandler({

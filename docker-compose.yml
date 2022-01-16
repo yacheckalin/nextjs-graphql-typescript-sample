@@ -1,0 +1,16 @@
+version: "3"
+services:
+  database:
+    image: "mongo"
+    restart: always
+    container_name: "mongo-container"
+    environment:
+      - MONGO_INITDB_DATABASE=sample-list
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./fixture/companies.json:/src/data/companies.json
+    command: mongoimport --file /src/data/companies.json -d sample-list -c companies --jsonArray -u test -p test
+    ports:
+      - "27017-27020:27017-27020"

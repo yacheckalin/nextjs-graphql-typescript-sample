@@ -8,7 +8,7 @@ export const typeDefs = gql`
   }
 
   type Company {
-    id: ID!
+    _id: ID!
     name: String!
     logo: String!
     specialities: CompanySpecialities!
