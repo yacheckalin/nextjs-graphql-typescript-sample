@@ -18,16 +18,22 @@ const Footer: React.FC<Props> = ({ callback }): JSX.Element => {
   const handleClick = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    callback({
-      variables: {
-        input: {
-          offset: (state.page + 1) * ELEMENTS_PER_PAGE - ELEMENTS_PER_PAGE,
-          specialities: state.filter,
-        },
-      },
-    });
-
-    dispatch({ type: PAGGINATE, payload: { page: state.page + 1 } });
+    // scroll to top
+    Promise.resolve()
+      .then(() => window.scrollTo({ top: 0, behavior: "smooth" }))
+      .then(() =>
+        callback({
+          variables: {
+            input: {
+              offset: (state.page + 1) * ELEMENTS_PER_PAGE - ELEMENTS_PER_PAGE,
+              specialities: state.filter,
+            },
+          },
+        })
+      )
+      .then(() =>
+        dispatch({ type: PAGGINATE, payload: { page: state.page + 1 } })
+      );
   };
 
   return (
