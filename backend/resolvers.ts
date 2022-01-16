@@ -32,8 +32,8 @@ export const resolvers: IResolvers = {
           search
             ? { name: { $regex: new RegExp(search), $options: "is" } }
             : {},
-          input?.specialities && input.specialities.length > 0
-            ? specialities && {
+          specialities
+            ? {
                 $or: [...specialities],
               }
             : {},
