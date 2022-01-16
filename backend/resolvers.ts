@@ -29,7 +29,9 @@ export const resolvers: IResolvers = {
 
       const filterCondition = {
         [`$and`]: [
-          search ? { [`$text`]: { [`$search`]: search } } : {},
+          search
+            ? { name: { $regex: new RegExp(search), $options: "is" } }
+            : {},
           input?.specialities && input.specialities.length > 0
             ? specialities && {
                 $or: [...specialities],
@@ -37,8 +39,6 @@ export const resolvers: IResolvers = {
             : {},
         ],
       };
-
-      // console.log(filterCondition);
 
       try {
         result = await context.db
